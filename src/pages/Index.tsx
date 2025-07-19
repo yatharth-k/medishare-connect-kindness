@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,9 +7,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Heart, Shield, Users, ArrowRight, Phone, Mail, MapPin, Plus, Search, Check, Clock } from 'lucide-react';
+import { Heart, Shield, Users, ArrowRight, Phone, Mail, MapPin, Plus, Search, Check, Clock, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const { toast } = useToast();
+  
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -17,12 +25,29 @@ const Index = () => {
     message: ''
   });
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Contact form submitted:', contactForm);
-    // Here you would typically send the form data to your backend
-    alert('Thank you for your message! We will get back to you soon.');
-    setContactForm({ name: '', email: '', subject: '', message: '' });
+    
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([contactForm]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message! We will get back to you soon.",
+      });
+      
+      setContactForm({ name: '', email: '', subject: '', message: '' });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+      });
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -48,12 +73,37 @@ const Index = () => {
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
             </div>
             <div className="flex space-x-4">
-              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                Sign In
-              </Button>
-              <Button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700">
-                Get Started
-              </Button>
+              {user ? (
+                <>
+                  <div className="flex items-center space-x-2 text-gray-700">
+                    <User className="h-4 w-4" />
+                    <span className="hidden md:inline">{user.email}</span>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                    onClick={signOut}
+                  >
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    variant="outline" 
+                    className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                    onClick={() => navigate('/auth')}
+                  >
+                    Sign In
+                  </Button>
+                  <Button 
+                    className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
+                    onClick={() => navigate('/auth')}
+                  >
+                    Get Started
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -75,11 +125,20 @@ const Index = () => {
               and help bridge the healthcare gap in underserved communities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
+                onClick={() => user ? alert('Donation form coming soon!') : navigate('/auth')}
+              >
                 Donate Medicines
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-blue-600 text-blue-600 hover:bg-blue-50"
+                onClick={() => user ? alert('NGO dashboard coming soon!') : navigate('/auth')}
+              >
                 I'm an NGO
               </Button>
             </div>
