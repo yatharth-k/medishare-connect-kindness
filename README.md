@@ -4,21 +4,27 @@
 
 **Live URL**: [https://medishare-connect-kindness-sf8c.vercel.app/](https://medishare-connect-kindness-sf8c.vercel.app/)
 
-MediShare is a platform that enables individuals to donate unused or excess medicines to NGOs in need. The goal is to reduce medicine wastage and make healthcare more accessible for underserved communities. This project blends modern web development with social impact.
+MediShare is a web platform that empowers individuals to donate unused or excess medicines to NGOs in need. The goal is to reduce medical waste and improve healthcare access for underprivileged communities. Built with modern web technologies, this platform ensures a fast, responsive, and intuitive experience for users and NGOs alike.
 
 ---
 
 ## ✏️ How Can I Edit This Code?
 
-There are several ways to contribute or modify this application:
+There are multiple ways to contribute or modify the project:
 
-### 🚀 Use Lovable
+### 💻 Use Your Preferred IDE (Local Setup)
 
-Visit your [Lovable Project](https://lovable.dev/projects/66eeb78b-8a2f-4695-b8bf-da0b3527e6c3) and start prompting.  
-Changes made through Lovable will be automatically committed to this repo.
-
-### 💻 Use Your Preferred IDE
-
-Clone this repo and work locally:
+To run the project locally, follow these steps:
 
 ```sh
+# Step 1: Clone the repository using the Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate into the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the dependencies.
+npm install
+
+# Step 4: Start the development server with auto-reloading.
+npm run dev
