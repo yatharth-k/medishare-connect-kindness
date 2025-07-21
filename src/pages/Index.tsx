@@ -431,7 +431,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-blue-600" />
-                  <span>Yatharth.00kherodia@gmail.com</span>
+                  <span>yatharth00kherodia@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-blue-600" />
