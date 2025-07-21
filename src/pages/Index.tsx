@@ -427,15 +427,15 @@ const Index = () => {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-blue-600" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+91-7023733199</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-blue-600" />
-                  <span>contact@medishare.org</span>
+                  <span>Yatharth.00kherodia@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-blue-600" />
-                  <span>123 Healthcare Ave, Medical District, NY 10001</span>
+                  <span>INDIA</span>
                 </div>
               </div>
               <Separator className="my-6" />
