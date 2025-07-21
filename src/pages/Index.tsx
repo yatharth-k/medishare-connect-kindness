@@ -41,7 +41,8 @@ const Index = () => {
       });
       
       setContactForm({ name: '', email: '', subject: '', message: '' });
-    } catch (error: any) {
+    } catch (error) {
+      const err = error as Error;
       toast({
         variant: "destructive",
         title: "Error",
@@ -128,7 +129,7 @@ const Index = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700"
-                onClick={() => user ? alert('Donation form coming soon!') : navigate('/auth')}
+                onClick={() => user ? navigate('/donate-medicine') : navigate('/auth')}
               >
                 Donate Medicines
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -137,7 +138,7 @@ const Index = () => {
                 size="lg" 
                 variant="outline" 
                 className="border-blue-600 text-blue-600 hover:bg-blue-50"
-                onClick={() => user ? alert('NGO dashboard coming soon!') : navigate('/auth')}
+                onClick={() => user ? navigate('/dashboard') : navigate('/auth')}
               >
                 I'm an NGO
               </Button>

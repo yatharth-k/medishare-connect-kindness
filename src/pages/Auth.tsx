@@ -10,12 +10,13 @@ import { Heart, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { User, PostgrestError } from '@supabase/supabase-js';
 
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const [signInForm, setSignInForm] = useState({
     email: '',
@@ -79,11 +80,12 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You have been signed in successfully.",
       });
-    } catch (error: any) {
+    } catch (error) {
+      const supabaseError = error as PostgrestError;
       toast({
         variant: "destructive",
         title: "Sign In Failed",
-        description: error.message || "An error occurred during sign in.",
+        description: supabaseError.message || "An error occurred during sign in.",
       });
     } finally {
       setLoading(false);
@@ -142,11 +144,12 @@ const Auth = () => {
         title: "Account Created!",
         description: "Please check your email to verify your account.",
       });
-    } catch (error: any) {
+    } catch (error) {
+      const supabaseError = error as PostgrestError;
       toast({
         variant: "destructive",
         title: "Sign Up Failed",
-        description: error.message || "An error occurred during sign up.",
+        description: supabaseError.message || "An error occurred during sign up.",
       });
     } finally {
       setLoading(false);
