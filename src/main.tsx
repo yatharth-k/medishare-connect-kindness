@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
 import { AuthProvider } from "./hooks/useAuth.tsx";
-import { Toaster } from "./components/ui/toaster";
+import { Toaster } from "./components/ui/toaster.tsx";
 import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")!).render(
